@@ -9,14 +9,14 @@ PointLight::PointLight(const Point3f& location)
 {}
 
 PointLight::PointLight(const Point3f& location,
-                       Color color,
+                       const Color& color,
                        Float ligth_scale /* = static_cast<Float>(1.0) */)
   : location_(location), color_(color), light_scale_(ligth_scale)
 {}
 
 PointLight::PointLight(const Point3f& location,
                        Float ligth_scale,
-                       Color color /* = WHITE */)
+                       const Color& color /* = WHITE */)
   : location_(location), color_(color), light_scale_(ligth_scale)
 {}
 
@@ -30,9 +30,9 @@ bool PointLight::CastShadows() const
   return true;
 }
 
-Vector3f PointLight::GetShadowRayDir(const ShadeRecord& shade_rec) const
+Vector3f PointLight::GetShadowRayDir(const HitRecord& hit_rec) const
 {
-  return Normalize(location_ - shade_rec.p_hit_);
+  return Normalize(location_ - hit_rec.p_hit_);
 }
 
 bool PointLight::InShadow(const Point3f& point, const std::vector<SurPtr>& objects) const

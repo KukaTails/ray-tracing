@@ -17,13 +17,13 @@ private:
 
 public:
   PointLight(const Point3f& location);
-  PointLight(const Point3f& location, Float ligth_scale, Color color = WHITE);
-  PointLight(const Point3f& location, Color color, Float ligth_scale = static_cast<Float>(1.0));
+  PointLight(const Point3f& location, Float ligth_scale, const Color& color = WHITE);
+  PointLight(const Point3f& location, const Color& color, Float ligth_scale = static_cast<Float>(1.0));
 
   virtual Color light() const override;
   virtual bool CastShadows() const override;
   virtual bool InShadow(const Point3f& point,const std::vector<SurPtr>& objects) const override;
-  virtual Vector3f GetShadowRayDir(const ShadeRecord& shade_rec) const override;
+  virtual Vector3f GetShadowRayDir(const HitRecord& hit_rec) const override;
 };
 
 } // namespace leptus

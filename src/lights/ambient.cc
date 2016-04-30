@@ -29,7 +29,7 @@ bool Ambient::InShadow(const Point3f& point, const std::vector<SurPtr>& objects)
   return false;
 }
 
-Vector3f Ambient::GetShadowRayDir(const ShadeRecord& shade_record) const
+Vector3f Ambient::GetShadowRayDir(const HitRecord& hit_record) const
 {
   return Vector3f(static_cast<Float>(0));
 }
