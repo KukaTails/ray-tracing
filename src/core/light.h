@@ -19,7 +19,7 @@ protected:
   bool shadows_;
 public:
   virtual ~Light() = default;
-  virtual Vector3f GetShadowRayDir(const ShadeRecord& shade_rec) const = 0;
+  virtual Vector3f GetShadowRayDir(const HitRecord& hit_rec) const = 0;
   virtual Color light() const = 0;
   virtual bool InShadow(const Point3f& point, const std::vector<SurPtr>& objects) const = 0;
   virtual bool CastShadows() const = 0;
