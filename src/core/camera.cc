@@ -4,7 +4,7 @@
 namespace leptus {
 
 Camera::Camera()
-  :eye_(Point3f(0, 0, -1)), lookat_(Point3f(0, 0, 0)), up_(Vector3f(0, 1, 0))
+  :eye_(Point3f(0, 0, 1)), lookat_(Point3f(0, 0, 0)), up_(Vector3f(0, 1, 0))
 {
   ComputeUVW();
 }
@@ -27,6 +27,11 @@ inline void Camera::ComputeUVW()
   w_ = Normalize(eye_ - lookat_);
   u_ = Normalize(Cross(up_, w_));
   v_ = Cross(w_, u_);
+}
+
+Vector2f Camera::view_plane_size() const
+{
+  return Vector2f(view_plane_.h_res_, view_plane_.v_res_);
 }
 
 } // namespace leptus

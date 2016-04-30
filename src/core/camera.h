@@ -2,6 +2,7 @@
 #define LEPTUS_CAMERA_H
 #include <memory>
 
+#include "core/ray.h"
 #include "core/viewplane.h"
 #include "geometry/point.h"
 #include "geometry/vec.h"
@@ -18,8 +19,10 @@ protected:
   Point3f lookat_;
   Vector3f up_;
   Vector3f u_, v_, w_;
-  ViewPlane view_plane_;
   float exposure_time_;
+
+public:
+  ViewPlane view_plane_;
 
 private:
   void ComputeUVW();
@@ -32,9 +35,11 @@ public:
          const Vector3f& up = Vector3f(0.0, 1.0, 0.0));
   virtual ~Camera() = default;
   virtual Ray GenerateRay(const CameraSample& sample) const = 0;
+
+  Vector2f view_plane_size() const;
 };
 
-
+typedef std::shared_ptr<Camera> CameraPtr;
 
 } // namespace leptus
 
