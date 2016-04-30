@@ -14,12 +14,12 @@ public:
   Color(Float c);
   Color(Float r, Float g, Float b);
 
-  friend Color operator*(Float scale, const Color& color);
-  friend Color operator*(const Color& color, Float scale);
+  friend const Color operator*(Float scale, const Color& color);
+  friend const Color operator*(const Color& color, Float scale);
 
-  Color operator+(const Color& color) const;
-  Color operator*(const Color& color) const;
-  Color& operator+=(const Color& color);
+  const Color operator+(const Color& color) const;
+  const Color operator*(const Color& color) const;
+  const Color& operator+=(const Color& color);
 };
 
 const Color BLACK = Color(0.0, 0.0, 0.0);
