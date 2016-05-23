@@ -6,11 +6,11 @@
 
 namespace leptus {
 
-class Whitted : public Tracer {
+class WhittedTracer : public Tracer {
 public:
   static const int MAX_DEPTH;
 public:
-  Whitted( ) = default;
+  WhittedTracer( ) = default;
   virtual Color TraceRay(const World& world, const Ray& ray) const override;
   virtual Color TraceRay(const World& world, const Ray& ray, const int depth) const override;
 };
