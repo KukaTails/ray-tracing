@@ -12,15 +12,16 @@ namespace leptus {
 
 class Render {
 private:
-  TracerPtr tracer_;
-  SamplerPtr sampler_;
-  CameraPtr camera_;
-  std::shared_ptr<std::vector<Vector3f>> image_;
+  TracerPtr tracer_ = std::make_shared<WhittedTracer>( );
+  SamplerPtr sampler_ = std::make_shared<RegularSampler>(1, 1);
+  CameraPtr camera_ = std::make_shared<PerspectiveCamera>();
+  std::shared_ptr<std::vector<Vector3f>> image_ = std::make_shared<std::vector<Vector3f>>(
+    camera_->view_plane_size( ).x_ * camera_->view_plane_size( ).y_);
 
 public:
-  Render(TracerPtr tracer = std::make_shared<WhittedTracer>(),
-         CameraPtr camera = std::make_shared<PerspectiveCamera>( ),
-         SamplerPtr sampler = std::make_shared<RegularSampler>(1, 1));
+  Render( ) = default;
+  Render(TracerPtr tracer, CameraPtr camera, SamplerPtr sampler);
+  void SetCamera(const CameraPtr& camera);
   void operator()(const WorldPtr& world) const;
   void Save(const std::string& file_path) const;
 };

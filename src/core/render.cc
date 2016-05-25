@@ -12,15 +12,27 @@ Render::Render(TracerPtr tracer /* = std::make_shared<WhittedTracer>() */,
   image_(std::make_shared<std::vector<Vector3f>>(camera->view_plane_size( ).x_ * camera->view_plane_size( ).y_))
 { }
 
+void Render::SetCamera(const CameraPtr& camera)
+{
+  Assert(camera);
+  camera_ = camera;
+}
+
 void Render::operator()(const WorldPtr& world) const
 {
   const Vector2i& view_plane_size = camera_->view_plane_size( );
+  int progross = -1;
 
   if (tracer_ != nullptr) {
     sampler_->GenerateSamples( );
     for (unsigned y = 0; y < view_plane_size.y_; ++y) {
       for (unsigned x = 0; x < view_plane_size.x_; ++x) {
         Color color;
+
+        if (static_cast<int>(y * 100 / view_plane_size.y_) > progross) {
+          progross++;
+          std::cout << "render: %" << progross << std::endl;
+        }
 
         for (int i = 0; i < sampler_->num_samples( ); ++i) {
           Point2f bias = sampler_->SampleUnitSquare( );
