@@ -1,5 +1,6 @@
-#ifndef LEPTUS_COLOR_H
-#define LEPTUS_COLOR_H
+#ifndef LEPTUS_CORE_COLOR_H
+#define LEPTUS_CORE_COLOR_H
+#include <iostream>
 
 #include "core/leptus.h"
 
@@ -20,6 +21,7 @@ public:
   const Color operator+(const Color& color) const;
   const Color operator*(const Color& color) const;
   const Color& operator+=(const Color& color);
+  friend std::ostream& operator<<(std::ostream& os, const Color& color);
 };
 
 const Color BLACK = Color(0.0, 0.0, 0.0);
@@ -30,4 +32,4 @@ const Color BLUE = Color(0.0, 0.0, 1.0);
 
 } // namespace leptus
 
-#endif // LEPTUS_COLOR_H
+#endif // LEPTUS_CORE_COLOR_H

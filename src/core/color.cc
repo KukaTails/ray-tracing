@@ -36,4 +36,10 @@ const Color Color::operator*(const Color& color) const
   return Color(r_ * color.r_, g_ * color.g_, b_ * color.b_);
 }
 
+std::ostream& operator<<(std::ostream& os, const Color& color)
+{
+  os << "[r=" << color.r_ << ", g=" << color.g_ << ", b=" << color.b_ << "]";
+  return os;
+}
+
 } // namespace leptus
