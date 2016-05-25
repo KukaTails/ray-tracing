@@ -23,7 +23,12 @@ Rectangle::Rectangle(const Point3f& p, const Vector3f& a,
 
 Point3f Rectangle::GetLocalHitPoint(const Point3f& p_hit) const
 {
-  return Point3f(Dot(Vector3f(p_hit), Normalize(a_)), 0, Dot(Vector3f(p_hit), Normalize(b_)));
+  const Vector3f segment = p_hit - p_;
+  const Float rect_x_unit_len = b_.Length( ) / 2;
+  const Float rect_z_unit_len = a_.Length( ) / 2;
+  Float x_coord = (Dot(Vector3f(segment), Normalize(b_)) - b_.Length() / 2) / rect_x_unit_len;
+  Float z_coord = (Dot(Vector3f(segment), Normalize(a_)) - a_.Length() / 2) / rect_z_unit_len;
+  return Point3f(x_coord, 0.0f, z_coord);
 }
 
 bool Rectangle::Hit(const Ray& ray, Float& t_hit, HitRecord& hit_rec) const
