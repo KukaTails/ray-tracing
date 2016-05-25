@@ -1,5 +1,5 @@
-#ifndef LEPTUS_SURFACE_H
-#define LEPTUS_SURFACE_H
+#ifndef LEPTUS_CORE_SURFACE_H
+#define LEPTUS_CORE_SURFACE_H
 #include <memory>
 
 #include "core/color.h"
@@ -13,9 +13,13 @@ namespace leptus {
 class Surface {
 public:
   typedef std::shared_ptr<Surface> SurPtr;
+  static const Float EPSILON;
 
 protected:
   mutable MaterialPtr material_;
+
+private:
+  virtual Point3f GetLocalHitPoint(const Point3f& p_hit) const = 0;
 
 public:
   Surface(const Color& color = Color(0.5, 0.5, 0.5));
@@ -31,4 +35,4 @@ typedef Surface::SurPtr SurPtr;
 
 } // namespace leptus
 
-#endif // LEPTUS_SURFACE_H
+#endif // LEPTUS_CORE_SURFACE_H
