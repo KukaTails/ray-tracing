@@ -1,5 +1,5 @@
-#ifndef LEPTUS_TEXTURE_H
-#define LEPTUS_TEXTURE_H
+#ifndef LEPTUS_CORE_TEXTURE_H
+#define LEPTUS_CORE_TEXTURE_H
 
 #include <memory>
 
@@ -20,4 +20,4 @@ typedef Texture::TexturePtr TexturePtr;
 
 } // namespace leptus
 
-#endif // LEPTUS_TEXTURE_H
+#endif // LEPTUS_CORE_TEXTURE_H

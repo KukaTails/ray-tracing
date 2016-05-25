@@ -1,15 +1,13 @@
-#ifndef LEPTUS_TRACER_H
-#define LEPTUS_TRACER_H
+#ifndef LEPTUS_CORE_TRACER_H
+#define LEPTUS_CORE_TRACER_H
 #include <memory>
 
 #include "core/color.h"
-#include "core/ray.h"
 #include "core/leptus.h"
-#include "world/world.h"
+#include "core/world.h"
+#include "core/ray.h"
 
 namespace leptus {
-
-class World;
 
 class Tracer {
 public:
@@ -27,4 +25,4 @@ typedef Tracer::TracerPtr TracerPtr;
 
 } // namespace leptus
 
-#endif // LEPTUS_TRECER_H
+#endif // LEPTUS_CORE_TRECER_H

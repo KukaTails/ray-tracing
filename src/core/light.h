@@ -1,14 +1,12 @@
-#ifndef LEPTUS_LIGHT_H
-#define LEPTUS_LIGHT_H
+#ifndef LEPTUS_CORE_LIGHT_H
+#define LEPTUS_CORE_LIGHT_H
 #include <memory>
 #include <vector>
 
 #include "core/color.h"
 #include "core/surface.h"
-#include "core/shaderecord.h"
-#include "core/ray.h"
-#include "geometry/point.h"
-#include "geometry/vec.h"
+#include "core/hitrecord.h"
+#include "geometry/geometry.h"
 
 namespace leptus {
 
@@ -29,4 +27,4 @@ typedef Light::LightPtr LightPtr;
 
 } // namespace leptus
 
-#endif // LEPTUS_LIGHT_H
+#endif // LEPTUS_CORE_LIGHT_H

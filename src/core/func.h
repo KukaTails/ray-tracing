@@ -1,9 +1,9 @@
-#ifndef LEPTUS_SHADE_FUNCS_H
-#define LEPTUS_SHADE_FUNCS_H
+#ifndef LEPTUS_CORE_FUNCS_H
+#define LEPTUS_CORE_FUNCS_H
 
 #include "core/color.h"
 #include "core/hitrecord.h"
-#include "geometry/vec.h"
+#include "geometry/geometry.h"
 
 namespace leptus {
 
@@ -19,4 +19,4 @@ public:
 
 } // namespace leptus
 
-#endif // LEPTUS_SHADE_FUNCS_H
+#endif // LEPTUS_CORE_FUNCS_H

@@ -1,11 +1,9 @@
-#ifndef LEPTUS_RAY_H
-#define LEPTUS_RAY_H
+#ifndef LEPTUS_CORE_RAY_H
+#define LEPTUS_CORE_RAY_H
 #include <iostream>
 
 #include "core/leptus.h"
 #include "geometry/geometry.h"
-#include "geometry/point.h"
-#include "geometry/vec.h"
 
 namespace leptus {
 

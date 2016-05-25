@@ -1,6 +1,6 @@
-#ifndef LEPTUS_LEPTUS_H
-#define LEPTUS_LEPTUS_H
-
+#ifndef LEPTUS_CORE_LEPTUS_H
+#define LEPTUS_CORE_LEPTUS_H
+#include <cassert>
 #include <limits>
 
 #pragma warning(disable : 4244) // int -> float conversion
@@ -26,7 +26,7 @@ typedef double Float
 typedef float Float;
 #endif // LEPTUS_FLOAT_AS_DOUBLE
 
-#ifndef NDEBUG
+#ifdef NDEBUG
 #define Assert(expr) ((void)0)
 #else
 #define Assert(expr) assert(expr)
@@ -34,11 +34,10 @@ typedef float Float;
 
 #define M_PI 3.141592653589793
 #define INV_PI (1 / M_PI)
-//#define INFINITY 1e8
 
+const Float BIAS = 10e-4;
 const Float INFINITY_FLOAT = std::numeric_limits<Float>::infinity();
-//const Float MAX_FLOAT = std::numeric_limits<Float>::max();
 
 } // namespace leptus
 
-#endif // LEPTUS_LEPTUS_H
+#endif // LEPTUS_CORE_LEPTUS_H
