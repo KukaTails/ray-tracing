@@ -5,7 +5,7 @@
 #include "core/hitrecord.h"
 #include "core/leptus.h"
 #include "core/ray.h"
-#include "geometry/vec.h"
+#include "geometry/geometry.h"
 
 namespace leptus {
 

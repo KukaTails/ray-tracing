@@ -5,8 +5,7 @@
 #include "core/material.h"
 #include "core/surface.h"
 #include "core/shaderecord.h"
-#include "geometry/normal.h"
-#include "geometry/point.h"
+#include "geometry/geometry.h"
 
 namespace leptus {
 

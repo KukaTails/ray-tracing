@@ -1,9 +1,5 @@
 #include "funcs/transmitter.h"
 
-#include "geometry/vec.h"
-#include "geometry/normal.h"
-#include "geometry/geometry.h"
-
 namespace leptus {
 
 PerfectTransmitter::PerfectTransmitter(Float refractive_index, Float k_transmit)
@@ -26,6 +22,8 @@ Color PerfectTransmitter::SampleF(const HitRecord& hit_rec,
                                   Vector3f& refractive_dir) const
 {
   Normal3f normal = hit_rec.n_hit_;
+  //if (Dot(normal, out_dir) < 0.0)
+  //  normal = -normal;
   Float cos_theta_i = Dot(normal, out_dir);
   Float eta = refractive_index_;
 

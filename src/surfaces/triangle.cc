@@ -1,7 +1,5 @@
 #include "surfaces/triangle.h"
 
-#include "geometry/geometry.h"
-
 namespace leptus {
 
 Triangle::Triangle(const Point3f& p0, const Point3f& p1, const Point3f& p2, const Color& color)
