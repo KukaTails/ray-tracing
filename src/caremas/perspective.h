@@ -3,8 +3,7 @@
 
 #include "core/ray.h"
 #include "core/camera.h"
-#include "geometry/vec.h"
-#include "geometry/point.h"
+#include "geometry/geometry.h"
 
 namespace leptus {
 
@@ -18,7 +17,7 @@ public:
   PerspectiveCamera(const Point3f& eye,
                     const Point3f& lookat,
                     const Vector3f& up = Vector3f(0.0, 1.0, 0.0));
-  virtual Ray GenerateRay(const CameraSample& sample) const override;
+  virtual Ray GenerateRay(const Point2f& point) const override;
 };
 
 } // namespace leptus
