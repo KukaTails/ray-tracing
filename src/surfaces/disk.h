@@ -5,8 +5,7 @@
 #include "core/ray.h"
 #include "core/surface.h"
 #include "core/hitrecord.h"
-#include "geometry/point.h"
-#include "geometry/normal.h"
+#include "geometry/geometry.h"
 
 namespace leptus {
 
@@ -20,8 +19,10 @@ private:
   Normal3f n_;
 
 public:
-  Disk(const Point3f& center, Float radius, const Normal3f& n);
+  Disk(const Point3f& center, Float radius, const Normal3f& n, const MaterialPtr& material);
+  virtual Point3f GetLocalHitPoint(const Point3f& p_hit) const override;
   virtual bool Hit(const Ray& ray, Float& t_hit, HitRecord& hit_rec) const override;
+  virtual bool ShadowHit(const Ray& ray, Float& t_hit) const override;
 };
 
 

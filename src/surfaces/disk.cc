@@ -6,9 +6,15 @@ namespace leptus {
 
 const Float Disk::EPSILON = 1e-4;
 
-Disk::Disk(const Point3f& center, Float radius, const Normal3f& n)
-  : center_(center), radius_(radius), n_(Normalize(n))
+Disk::Disk(const Point3f& center, Float radius, const Normal3f& n, const MaterialPtr& material)
+  : Surface(material), center_(center), radius_(radius), n_(Normalize(n))
 {}
+
+Point3f Disk::GetLocalHitPoint(const Point3f& p_hit) const
+{
+  Point3f tmp = Point3f(p_hit.x_ - center_.x_, p_hit.y_ - center_.y_, p_hit.z_ - center_.z_);
+  return tmp * (1 / radius_);
+}
 
 bool Disk::Hit(const Ray& ray, Float& t_hit, HitRecord& hit_rec) const
 {
@@ -25,6 +31,11 @@ bool Disk::Hit(const Ray& ray, Float& t_hit, HitRecord& hit_rec) const
     return true;
   }
   return false;
+}
+
+bool Disk::ShadowHit(const Ray& ray, Float& t_hit) const
+{
+  return Hit(ray, t_hit, HitRecord( ));
 }
 
 } // namespace leptus
