@@ -4,23 +4,40 @@
 #include "geometry/geometry.h"
 
 namespace leptus {
-const Float Plane::EPSILON = 1e-4;
+
+const Float Plane::EPSILON = 1e-2;
 
 Plane::Plane(const Point3f& p, const Normal3f& n, const Color& color /* = BLACK */)
-  : p_(p), n_(n), Surface(color)
+  : Surface(color), p_(p), n_(Normalize(n))
 {}
 
 Plane::Plane(const Point3f& p, const Normal3f& n, const MaterialPtr& material)
-  : p_(p), n_(n), Surface(material)
+  : Surface(material), p_(p), n_(Normalize(n))
 {}
 
-bool Plane::Hit(const Ray& ray, Float& t_hit, ShadeRecord& shade_rec) const
+Point3f Plane::GetLocalHitPoint(const Point3f& p_hit) const
+{
+  return Point3f(0, 0, 0);
+}
+
+bool Plane::Hit(const Ray& ray, Float& t_hit, HitRecord& hit_rec) const
 {
   Float t = Dot(p_ - ray.orig_, n_) / Dot(ray.dir_, n_);
   if (t > EPSILON) {
     t_hit = t;
-    shade_rec.n_hit_ = n_;
-    shade_rec.p_hit_ = ray.orig_ + ray.dir_ * t;
+    hit_rec.n_hit_ = n_;
+    hit_rec.p_hit_ = ray.orig_ + ray.dir_ * t;
+    hit_rec.local_p_hit_ = GetLocalHitPoint(hit_rec.p_hit_);
+    return true;
+  }
+  return false;
+}
+
+bool Plane::ShadowHit(const Ray& ray, Float& t_hit) const
+{
+  Float t = Dot(p_ - ray.orig_, n_) / Dot(ray.dir_, n_);
+  if (t > EPSILON) {
+    t_hit = t;
     return true;
   }
   return false;

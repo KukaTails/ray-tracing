@@ -18,7 +18,9 @@ public:
 public:
   Plane(const Point3f& p, const Normal3f& n, const Color& color = BLACK);
   Plane(const Point3f& p, const Normal3f& n, const MaterialPtr& material);
-  virtual bool Hit(const Ray& ray, Float& t_hit, ShadeRecord& shade_rec) const override;
+  virtual Point3f GetLocalHitPoint(const Point3f& p_hit) const override;
+  virtual bool Hit(const Ray& ray, Float& t_hit, HitRecord& hit_rec) const override;
+  virtual bool ShadowHit(const Ray& ray, Float &t_hit) const override;
 };
 
 } // namespace leptus
