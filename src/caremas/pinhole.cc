@@ -13,7 +13,7 @@ PinHoleCamera::PinHoleCamera(Float d,
   :d_(d), Camera(eye, lookat, up)
 {}
 
-Ray PinHoleCamera::GenerateRay(const CameraSample& sample) const
+Ray PinHoleCamera::GenerateRay(const Point2f& sample) const
 {
   return Ray();
 }
