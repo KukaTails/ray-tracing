@@ -3,7 +3,7 @@
 
 #include "core/light.h"
 #include "core/ray.h"
-#include "geometry/vec.h"
+#include "geometry/geometry.h"
 
 namespace leptus {
 
