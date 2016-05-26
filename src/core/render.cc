@@ -18,6 +18,12 @@ void Render::SetCamera(const CameraPtr& camera)
   camera_ = camera;
 }
 
+void Render::SetSampler(const SamplerPtr& sampler)
+{
+  Assert(sampler);
+  sampler_ = sampler;
+}
+
 void Render::operator()(const WorldPtr& world) const
 {
   const Vector2i& view_plane_size = camera_->view_plane_size( );

@@ -22,6 +22,7 @@ public:
   Render( ) = default;
   Render(TracerPtr tracer, CameraPtr camera, SamplerPtr sampler);
   void SetCamera(const CameraPtr& camera);
+  void SetSampler(const SamplerPtr& sampler);
   void operator()(const WorldPtr& world) const;
   void Save(const std::string& file_path) const;
 };
