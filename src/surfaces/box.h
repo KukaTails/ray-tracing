@@ -2,7 +2,7 @@
 #define LEPTUS_BOX_H
 
 #include "core/ray.h"
-#include "geometry/point.h"
+#include "geometry/geometry.h"
 
 namespace leptus {
 
