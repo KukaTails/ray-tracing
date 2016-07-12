@@ -1,9 +1,10 @@
 #include "surfaces/rectangle.h"
+#include <algorithm>
 
 namespace leptus {
 
 Rectangle::Rectangle(const Point3f& p, const Vector3f& a, const Vector3f& b, const Color& color)
-  : Surface(color), p_(p), a_(a), b_(b), n_(Normalize(Cross(a, b)))
+  : Surface(color), p_(p), a_(a), b_(b), n_(Normalize(Cross(a, b))), pdf_(1 / (Cross(a, b).Length()))
 {
   Assert(Dot(a, b) == 0.0);
 }
@@ -31,6 +32,22 @@ Point3f Rectangle::GetLocalHitPoint(const Point3f& p_hit) const
   return Point3f(x_coord, 0.0f, z_coord);
 }
 
+BoundingBoxPtr Rectangle::GetBoundingBox( ) const
+{
+  Point3f p0 = p_;
+  Point3f p1 = p_ + a_;
+  Point3f p2 = p_ + b_;
+
+  Float x_min = std::min({p0.x_, p1.x_, p2.x_});
+  Float y_min = std::min({p0.y_, p1.y_, p2.y_});
+  Float z_min = std::min({p0.z_, p1.z_, p2.z_});
+
+  Float x_max = std::max({p0.x_, p1.x_, p2.x_});
+  Float y_max = std::max({p0.y_, p1.y_, p2.y_});
+  Float z_max = std::max({p0.z_, p1.z_, p2.z_});
+  return std::make_shared<BoundingBox>(Point3f(x_min, y_min, z_min), Point3f(x_max, y_max, z_max));
+}
+
 bool Rectangle::Hit(const Ray& ray, Float& t_hit, HitRecord& hit_rec) const
 {
   Float t = Dot(p_ - ray.orig_, n_) / Dot(ray.dir_, n_);
@@ -54,7 +71,21 @@ bool Rectangle::Hit(const Ray& ray, Float& t_hit, HitRecord& hit_rec) const
 
 bool Rectangle::ShadowHit(const Ray& ray, Float& t_hit) const
 {
+  if (!BoundingBoxHit(ray))
+    return false;
+
   return Hit(ray, t_hit, HitRecord( ));
+}
+
+Point3f Rectangle::Sample( ) const
+{
+  Point2f sampler_point = sampler_->SampleUnitSquare( );
+  return p_ + sampler_point.x_ * a_ + sampler_point.y_ * b_;
+}
+
+Float Rectangle::ProbabilityDensityFunc(const HitRecord& hit_rec) const
+{
+  return pdf_;
 }
 
 } // namespace leptus
