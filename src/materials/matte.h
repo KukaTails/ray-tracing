@@ -17,6 +17,7 @@ public:
   Matte(const Color& color);
   Matte(const Color& color, Float k_ambient, Float k_diffuse);
   virtual Color Shade(const ShadeRecord& shade_rec) const;
+  virtual Color AreaLightShade(const ShadeRecord& shade_rec) const;
 };
 
 } // namespace leptus
