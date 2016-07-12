@@ -8,25 +8,32 @@
 namespace leptus {
 
 class Sampler {
-protected:
-  unsigned num_samples_;
-  unsigned num_sets_;
-  unsigned cnt_;
-  std::vector<Point2f> samples_;
+public:
+  using SamplerPtr = std::shared_ptr<Sampler>;
 
 public:
-  typedef std::shared_ptr<Sampler> SamplerPtr;
   static Float RandFloat( );
 
 public:
   Sampler(unsigned num_samples, unsigned num_sets);
   virtual ~Sampler( ) = default;
-  virtual void GenerateSamples( ) = 0;
-  Point2f SampleUnitSquare( );
+  
   unsigned num_samples( ) const;
+  Point2f SampleUnitSquare( );
+  Point2f SampleUnitDisk( );
+  void MapSamplesToUnitDisk( );
+  void MapSamplesToHemisphere(Float e);
+  virtual void GenerateSamples( ) = 0;
+
+protected:
+  unsigned num_samples_;
+  unsigned num_sets_;
+  unsigned cnt_;
+  std::vector<Point2f> square_samples_;
+  std::vector<Point2f> disk_samples_;
 };
 
-typedef Sampler::SamplerPtr SamplerPtr;
+using SamplerPtr = Sampler::SamplerPtr;
 
 } // namespace leptus
 
