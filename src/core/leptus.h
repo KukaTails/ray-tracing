@@ -21,9 +21,9 @@ template <typename T>
 class Normal3;
 
 #ifdef LEPTUS_FLOAT_AS_DOUBLE
-typedef double Float
+using Float = double;
 #else
-typedef float Float;
+using Float = float;
 #endif // LEPTUS_FLOAT_AS_DOUBLE
 
 #ifdef NDEBUG
@@ -35,7 +35,8 @@ typedef float Float;
 #define M_PI 3.141592653589793
 #define INV_PI (1 / M_PI)
 
-const Float BIAS = 10e-4;
+const Float BIAS = 1e-4;
+const Float EPSILON = 1e-4;
 const Float INFINITY_FLOAT = std::numeric_limits<Float>::infinity();
 
 } // namespace leptus
