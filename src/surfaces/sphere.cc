@@ -17,6 +17,14 @@ Point3f Sphere::GetLocalHitPoint(const Point3f& p_hit) const
                  (p_hit.z_ - center_.z_) / radius_);
 }
 
+BoundingBoxPtr Sphere::GetBoundingBox( ) const
+{
+  Point3f min_point = Point3f(center_ - Point3f(radius_, radius_, radius_));
+  Point3f max_point = Point3f(center_ + Point3f(radius_, radius_, radius_));
+
+  return std::make_shared<BoundingBox>(min_point, max_point);
+}
+
 bool Sphere::Hit(const Ray& ray, Float& t_hit, HitRecord& hit_rec) const
 {
   /*
@@ -47,6 +55,9 @@ bool Sphere::Hit(const Ray& ray, Float& t_hit, HitRecord& hit_rec) const
 
 bool Sphere::ShadowHit(const Ray& ray, Float& t_hit) const
 {
+  if (!BoundingBoxHit(ray))
+    return false;
+
   Vector3f l = center_ - ray.orig_;
   Float tca = Dot(l, ray.dir_);
   if (tca < 0) return false;
