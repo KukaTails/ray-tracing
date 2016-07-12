@@ -1,5 +1,6 @@
+#include <cmath>
+#include <algorithm>
 #include "image.h"
-
 #include "SOIL/SOIL.h"
 
 namespace leptus {
@@ -23,8 +24,8 @@ void Image::LoadImage( )
 Color Image::GetColor(float u, float v) const
 {
   assert(u >= 0 && v >= 0);
-  int x = static_cast<int>(u * width_);
-  int y = static_cast<int>(v * height_);
+  int x = std::max(0, static_cast<int>(ceil(u * width_) - 1));
+  int y = std::max(0, static_cast<int>(ceil(v * height_) - 1));
   int index = (y * width_ + x) * 3;
   return Color(static_cast<float>(data_[index]) / 256.0f,
                static_cast<float>(data_[index + 1]) / 256.0f,
