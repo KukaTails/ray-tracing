@@ -18,9 +18,11 @@ protected:
 public:
   virtual ~Light() = default;
   virtual Vector3f GetShadowRayDir(const HitRecord& hit_rec) const = 0;
-  virtual Color light() const = 0;
+  virtual Color light(const HitRecord& hit_rec) const = 0;
   virtual bool InShadow(const Point3f& point, const std::vector<SurPtr>& objects) const = 0;
   virtual bool CastShadows() const = 0;
+  virtual Float GeometricFactor(const HitRecord& hit_rec) const { return 0.0; }
+  virtual Float ProbabilityDensityFunction(const HitRecord& hit_rec) const { return 0.0; }
 };
 
 typedef Light::LightPtr LightPtr;
