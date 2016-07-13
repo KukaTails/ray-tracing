@@ -1,7 +1,7 @@
 #ifndef LEPTUS_CORE_CAMERA_H
 #define LEPTUS_CORE_CAMERA_H
 #include <memory>
-
+#include <vector>
 #include "core/viewplane.h"
 #include "core/ray.h"
 #include "geometry/geometry.h"
@@ -17,7 +17,6 @@ protected:
   Point3f lookat_;
   Vector3f up_;
   Vector3f u_, v_, w_;
-  float exposure_time_;
   ViewPlane view_plane_;
 
 private:
@@ -30,7 +29,7 @@ public:
          const Point3f& lookat,
          const Vector3f& up = Vector3f(0.0, 1.0, 0.0));
   virtual ~Camera() = default;
-  virtual Ray GenerateRay(const Point2f& point) const = 0;
+  virtual std::vector<Ray> GenerateRay(const Point2f& point) const = 0;
   Vector2i view_plane_size() const;
 };
 
