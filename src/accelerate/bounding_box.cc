@@ -6,6 +6,16 @@ BoundingBox::BoundingBox(const Point3f& min, const Point3f& max)
   : min_(min), max_(max)
 {}
 
+Point3f BoundingBox::min( ) const
+{
+  return min_;
+}
+
+Point3f BoundingBox::max( ) const
+{
+  return max_;
+}
+
 bool BoundingBox::Hit(const Ray& ray) const
 {
   Float ray_orig_x = ray.orig_.x_, ray_orig_y = ray.orig_.y_, ray_orig_z = ray.orig_.z_;

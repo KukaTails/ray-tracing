@@ -13,9 +13,11 @@ public:
 
 public:
   BoundingBox(const Point3f& min, const Point3f& max);
+  Point3f min( ) const;
+  Point3f max( ) const;
   bool Hit(const Ray& ray) const;
 
-public:
+private:
   Point3f min_, max_;
 };
 
