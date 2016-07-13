@@ -19,7 +19,7 @@ public:
                 const Point3f& eye,
                 const Point3f& lookat,
                 const Vector3f& up = Vector3f(0.0, 1.1, 0.0));
-  virtual Ray GenerateRay(const Point2f& sample) const override;
+  virtual std::vector<Ray> GenerateRay(const Point2f& sample) const override;
 };
 
 }  // namespace leptus

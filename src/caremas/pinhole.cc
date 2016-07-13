@@ -13,9 +13,9 @@ PinHoleCamera::PinHoleCamera(Float d,
   :d_(d), Camera(eye, lookat, up)
 {}
 
-Ray PinHoleCamera::GenerateRay(const Point2f& sample) const
+std::vector<Ray> PinHoleCamera::GenerateRay(const Point2f& sample) const
 {
-  return Ray();
+  return { };
 }
 
 } // namespace leptus
