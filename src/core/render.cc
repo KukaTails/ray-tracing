@@ -33,19 +33,21 @@ void Render::operator()(const WorldPtr& world) const
     sampler_->GenerateSamples( );
     for (unsigned y = 0; y < view_plane_size.y_; ++y) {
       for (unsigned x = 0; x < view_plane_size.x_; ++x) {
-        Color color;
-
         if (static_cast<int>(y * 100 / view_plane_size.y_) > progross) {
           progross++;
           std::cout << "render: %" << progross << std::endl;
         }
 
+        Color color;
+        std::vector<Ray> rays;
         for (int i = 0; i < sampler_->num_samples( ); ++i) {
           Point2f bias = sampler_->SampleUnitSquare( );
-          Ray ray = camera_->GenerateRay(Point2f(x + bias.x_, y + bias.y_));
-          color += tracer_->TraceRay(*world, ray);
+          rays = camera_->GenerateRay(Point2f(x + bias.x_, y + bias.y_));
+          for (auto& ray : rays) {
+            color += tracer_->TraceRay(*world, ray);
+          }
         }
-        color = color * (1.0 / sampler_->num_samples( ));
+        color = color * (1.0 / (sampler_->num_samples( ) * rays.size()));
         (*image_)[y * view_plane_size.x_ + x] = Vector3f(std::min(color.r_, 1.0f),
                                                          std::min(color.g_, 1.0f),
                                                          std::min(color.b_, 1.0f));
