@@ -17,7 +17,7 @@ public:
   Ambient(Color color, Float light_scale = static_cast<Float>(1.0));
   Ambient(Float light_scale, Color color = WHITE);
   virtual Vector3f GetShadowRayDir(const HitRecord& hit_rec) const override;
-  virtual Color light() const override;
+  virtual Color light(const HitRecord& hit_rec) const override;
   virtual bool CastShadows() const override;
   virtual bool InShadow(const Point3f& point, const std::vector<SurPtr>& objects) const override;
 };

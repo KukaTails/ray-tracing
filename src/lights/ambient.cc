@@ -14,7 +14,7 @@ Ambient::Ambient(Color color, Float light_scale /* = static_cast<Float>(1.0) */)
   : color_(color), light_scale_(light_scale)
 {}
 
-Color Ambient::light() const
+Color Ambient::light(const HitRecord& hit_rec) const
 {
   return light_scale_ * color_;
 }

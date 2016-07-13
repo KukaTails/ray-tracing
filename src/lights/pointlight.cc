@@ -20,7 +20,7 @@ PointLight::PointLight(const Point3f& location,
   : location_(location), color_(color), light_scale_(ligth_scale)
 {}
 
-Color PointLight::light() const
+Color PointLight::light(const HitRecord& hit_rec) const
 {
   return light_scale_ * color_;
 }
