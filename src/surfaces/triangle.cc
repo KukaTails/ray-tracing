@@ -1,4 +1,5 @@
 #include "surfaces/triangle.h"
+#include <algorithm>
 
 namespace leptus {
 
@@ -15,8 +16,23 @@ Point3f Triangle::GetLocalHitPoint(const Point3f& p_hit) const
   return Point3f( );
 }
 
+BoundingBoxPtr Triangle::GetBoundingBox( ) const
+{
+  Float x_min = std::min({p0_.x_, p1_.x_, p2_.x_});
+  Float y_min = std::min({p0_.y_, p1_.y_, p2_.y_});
+  Float z_min = std::min({p0_.z_, p1_.z_, p2_.z_});
+
+  Float x_max = std::max({p0_.x_, p1_.x_, p2_.x_});
+  Float y_max = std::max({p0_.y_, p1_.y_, p2_.y_});
+  Float z_max = std::max({p0_.z_, p1_.z_, p2_.z_});
+  return std::make_shared<BoundingBox>(Point3f(x_min, y_min, z_min), Point3f(x_max, y_max, z_max));
+}
+
 bool Triangle::ShadowHit(const Ray& ray, Float& t_hit) const
 {
+  if (!BoundingBoxHit(ray))
+    return false;
+
   Float a = p0_.x_ - p1_.x_, b = p0_.x_ - p2_.x_, c = ray.dir_.x_, d = p0_.x_ - ray.orig_.x_;
   Float e = p0_.y_ - p1_.y_, f = p0_.y_ - p2_.y_, g = ray.dir_.y_, h = p0_.y_ - ray.orig_.y_;
   Float i = p0_.z_ - p1_.z_, j = p0_.z_ - p2_.z_, k = ray.dir_.z_, l = p0_.z_ - ray.orig_.z_;
