@@ -5,8 +5,6 @@
 
 namespace leptus {
 
-const Float Plane::EPSILON = 1e-2;
-
 Plane::Plane(const Point3f& p, const Normal3f& n, const Color& color /* = BLACK */)
   : Surface(color), p_(p), n_(Normalize(n))
 {}
@@ -18,6 +16,11 @@ Plane::Plane(const Point3f& p, const Normal3f& n, const MaterialPtr& material)
 Point3f Plane::GetLocalHitPoint(const Point3f& p_hit) const
 {
   return Point3f(0, 0, 0);
+}
+
+BoundingBoxPtr Plane::GetBoundingBox( ) const
+{
+  return std::make_shared<BoundingBox>(Point3f( ), Point3f( ));
 }
 
 bool Plane::Hit(const Ray& ray, Float& t_hit, HitRecord& hit_rec) const
