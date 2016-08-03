@@ -3,10 +3,33 @@
 
 namespace leptus {
 
-Color AreaLight::light(const HitRecord& hit_rec) const
+AreaLight::AreaLight(const Emissive& emissive_material /* = Emissive(Color(1.0, 1.0, 1.0)) */)
+  : Light(), surface_( ), emissive_material_(emissive_material)
+{ }
+
+
+AreaLight::AreaLight(const SurPtr& surface, const Emissive& emissive_material /* = Emissive(Color(1.0, 1.0, 1.0)) */)
+  : Light(), surface_(surface), emissive_material_(emissive_material)
+{}
+
+
+void AreaLight::SetSurface(const SurPtr& surface)
+{
+  Assert(surface != nullptr);
+  surface_ = surface;
+}
+
+
+void AreaLight::SetEmissvieMaterial(const Emissive& material)
+{
+  emissive_material_ = material;
+}
+
+
+Color AreaLight::light(const ShadeRecord& shade_rec) const
 {
   if (-Dot(sample_normal_, in_dir_) > 0.0) {
-    return emissive_material_.light(hit_rec);
+    return emissive_material_.light(shade_rec.hit_rec_);
   } else {
     return Color(0.0f, 0.0f, 0.0f);
   }
@@ -43,6 +66,7 @@ Float AreaLight::GeometricFactor(const HitRecord& hit_rec) const
   Float distance = Distance(sample_point_, hit_rec.p_hit_);
   return n_dot_d / (distance * distance);
 }
+
 
 Float AreaLight::ProbabilityDensityFunction(const HitRecord& hit_rec) const
 {
