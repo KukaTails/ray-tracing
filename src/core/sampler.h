@@ -21,14 +21,20 @@ public:
   unsigned num_samples( ) const;
   Point2f SampleUnitSquare( );
   Point2f SampleUnitDisk( );
-  void MapSamplesToUnitDisk( );
-  void MapSamplesToHemisphere(Float e);
+  Point3f SampleUnitHemiSphere( );
+  void SetHemiSphereCosineExponent(Float cosine_exponent);
   virtual void GenerateSamples( ) = 0;
+
+protected:
+  void MapSamplesToUnitDisk( );
+  void MapSamplesToHemisphere(Float cosine_exponent_);
 
 protected:
   unsigned num_samples_;
   unsigned num_sets_;
   unsigned cnt_;
+  Float cosine_exponent_;
+  std::vector<Point3f> hemisphere_samples_;
   std::vector<Point2f> square_samples_;
   std::vector<Point2f> disk_samples_;
 };
