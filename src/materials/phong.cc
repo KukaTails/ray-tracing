@@ -25,7 +25,7 @@ Color Phong::Shade(const ShadeRecord& shade_rec) const
   const std::vector<LightPtr>& lights = shade_rec.world_.lights();
 
   Vector3f out_dir = -shade_rec.ray_.dir_;
-  Color out_color = ambient_func_.Rho(hit_rec, out_dir) * shade_rec.world_.ambient_light()->light();
+  Color out_color = ambient_func_.Rho(hit_rec, out_dir) * shade_rec.world_.ambient_light()->light(hit_rec);
 
   for (int i = 0; i < lights.size(); ++i) {
     Vector3f in_dir = lights[i]->GetShadowRayDir(shade_rec.hit_rec_);
@@ -35,7 +35,7 @@ Color Phong::Shade(const ShadeRecord& shade_rec) const
       if (lights[i]->CastShadows() && !lights[i]->InShadow(hit_rec.p_hit_, shade_rec.world_.surfaces())) {
         out_color += (diffuse_func_.F(hit_rec, out_dir, in_dir)
                       + specular_func_.F(hit_rec, out_dir, in_dir)) *
-          shade_rec.world_.lights()[i]->light() * n_dot_in;
+          shade_rec.world_.lights()[i]->light(hit_rec) * n_dot_in;
       }
     }
   }
