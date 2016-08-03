@@ -14,6 +14,9 @@ public:
   typedef std::shared_ptr<Tracer> TracerPtr;
 
 public:
+  static const int MAX_DEPTH;
+
+public:
   Tracer() = default;
   virtual ~Tracer() = default;
 
