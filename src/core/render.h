@@ -21,6 +21,7 @@ private:
 public:
   Render( ) = default;
   Render(TracerPtr tracer, CameraPtr camera, SamplerPtr sampler);
+  void SetTracer(const TracerPtr& tracer);
   void SetCamera(const CameraPtr& camera);
   void SetSampler(const SamplerPtr& sampler);
   void operator()(const WorldPtr& world) const;

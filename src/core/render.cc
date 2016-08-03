@@ -12,6 +12,12 @@ Render::Render(TracerPtr tracer /* = std::make_shared<WhittedTracer>() */,
   image_(std::make_shared<std::vector<Vector3f>>(camera->view_plane_size( ).x_ * camera->view_plane_size( ).y_))
 { }
 
+void Render::SetTracer(const TracerPtr& tracer)
+{
+  Assert(tracer);
+  tracer_ = tracer;
+}
+
 void Render::SetCamera(const CameraPtr& camera)
 {
   Assert(camera);
