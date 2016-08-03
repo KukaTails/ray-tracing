@@ -165,6 +165,12 @@ public:
     Assert(!HasNaNs( ));
   }
 
+  explicit Point3(const Vector3<T>& v)
+    : x_(v.x_), y_(v.y_), z_(v.z_)
+  {
+    Assert(!HasNaNs( ));
+  }
+
   template <typename U>
   explicit operator Vector3<U>( ) const
   {
@@ -185,7 +191,7 @@ public:
 
   const Point3<T> operator+(const Point3<T>& p) const
   {
-    Assert(!v.HasNaNs( ));
+    Assert(!p.HasNaNs( ));
     return Point3(x_ + p.x_, y_ + p.y_, z_ + p.z_);
   }
 
@@ -760,6 +766,28 @@ template <typename T>
 inline const Normal3<T> Normalize(const Normal3<T>& n)
 {
   return n / n.Length();
+}
+
+template <typename T>
+T LinearInterpolation(Float f, const T& lhs, const T& rhs)
+{
+  return lhs + f * (rhs - lhs);
+}
+
+template <typename T>
+T FourKnotSpline(Float x, const T knots[4])
+{
+  T c3 = -0.5 * knots[0] + 1.5 * knots[1] - 1.5 * knots[2] + 0.5 * knots[3];
+  T c2 = knots[0] - 2.5 * knots[1] + 2.0 * knots[2] - 0.5 * knots[3];
+  T c1 = 0.5 * (-knots[0] + knots[2]);
+  T c0 = knots[1];
+  return (((c3 * x + c2) * x) + c1) * x + c0;
+}
+
+template <typename T>
+T Clamp(T x, T min, T max)
+{
+  return x < min ? min : (x > max ? max : x);
 }
 
 } // namespace leptus
