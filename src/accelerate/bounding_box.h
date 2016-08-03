@@ -1,7 +1,7 @@
 #ifndef LEPTUS_ACCELERATE_BOUNDING_BOX_H
 #define LEPTUS_ACCELERATE_BOUNDING_BOX_H
 #include <memory>
-#include "accelerate/bounding_box.h"
+#include "geometry/geometry.h"
 #include "core/ray.h"
 #include "geometry/geometry.h"
 
@@ -13,8 +13,9 @@ public:
 
 public:
   BoundingBox(const Point3f& min, const Point3f& max);
-  Point3f min( ) const;
-  Point3f max( ) const;
+  bool Inside(const Point3f& point) const;
+  Point3f min_coord( ) const;
+  Point3f max_coord( ) const;
   bool Hit(const Ray& ray) const;
 
 private:

@@ -6,14 +6,21 @@ BoundingBox::BoundingBox(const Point3f& min, const Point3f& max)
   : min_(min), max_(max)
 {}
 
-Point3f BoundingBox::min( ) const
+Point3f BoundingBox::min_coord( ) const
 {
   return min_;
 }
 
-Point3f BoundingBox::max( ) const
+Point3f BoundingBox::max_coord( ) const
 {
   return max_;
+}
+
+bool BoundingBox::Inside(const Point3f& point) const
+{
+  return (point.x_ > min_.x_ && point.x_ < max_.x_)
+    && (point.y_ > min_.y_ && point.y_ < max_.y_)
+    && (point.z_ > min_.z_ && point.z_ < max_.z_);
 }
 
 bool BoundingBox::Hit(const Ray& ray) const
@@ -70,6 +77,5 @@ bool BoundingBox::Hit(const Ray& ray) const
   
   return t0 < t1 && t1 > BIAS;
 }
-
 
 } // namespace leptus
