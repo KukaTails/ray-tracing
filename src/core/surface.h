@@ -40,7 +40,7 @@ protected:
   mutable BoundingBoxPtr bounding_box_;
 };
 
-using SufPtr = Surface::SurPtr;
+using SurPtr = Surface::SurPtr;
 
 } // namespace leptus
 
