@@ -1,5 +1,5 @@
-#ifndef LEPTUS_RAY_CAST_SPHERE_H
-#define LEPTUS_RAY_CAST_SPHERE_H
+#ifndef LEPTUS_TRACERS_RAY_CAST_H
+#define LEPTUS_TRACERS_RAY_CAST_H
 #include <memory>
 
 #include "core/color.h"
@@ -17,4 +17,4 @@ public:
 
 } // namespace leptus
 
-#endif // LEPTUS_SINGLE_SPHERE_H
+#endif // LEPTUS_TRACERS_RAY_CAST_H

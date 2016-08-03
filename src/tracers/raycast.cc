@@ -1,7 +1,7 @@
 #include "tracers/raycast.h"
 
+#include "core/world.h"
 #include "core/shaderecord.h"
-#include "world/world.h"
 
 namespace leptus {
 
@@ -13,7 +13,7 @@ Color RayCast::TraceRay(const World& world, const Ray& ray) const
     shade_rec.ray_ = ray;
     return shade_rec.material_->Shade(shade_rec);
   } else {
-    return world.bg_color_;
+    return world.backgroud_color( );
   }
 }
 
@@ -24,7 +24,7 @@ Color RayCast::TraceRay(const World& world, const Ray& ray, const int depth) con
     shade_rec.ray_ = ray;
     return shade_rec.material_->Shade(shade_rec);
   } else {
-    return world.bg_color_;
+    return world.backgroud_color( );
   }
 }
 
@@ -36,7 +36,7 @@ Color RayCast::TraceRay(const World& world, const Ray& ray, const int depth, int
     shade_rec.ray_ = ray;
     return shade_rec.material_->Shade(shade_rec);
   } else {
-    return world.bg_color_;
+    return world.backgroud_color();
   }
 }
 
