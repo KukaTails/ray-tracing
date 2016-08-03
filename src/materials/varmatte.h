@@ -17,6 +17,7 @@ public:
   VARMatte(const TexturePtr& texture);
   VARMatte(const TexturePtr& texture, Float k_ambient, Float k_diffuse);
   virtual Color Shade(const ShadeRecord& shade_rec) const;
+  virtual Color AreaLightShade(const ShadeRecord& shade_rec) const override;
 };
 
 } // namespace leptus
