@@ -1,10 +1,7 @@
 #include "tracers/whitted.h"
-
 #include "core/shaderecord.h"
 
 namespace leptus {
-
-const int WhittedTracer::MAX_DEPTH = 3;
 
 Color WhittedTracer::TraceRay(const World& world, const Ray& ray) const
 {
