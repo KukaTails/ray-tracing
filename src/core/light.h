@@ -6,7 +6,6 @@
 #include "core/color.h"
 #include "core/surface.h"
 #include "core/hitrecord.h"
-#include "core/shaderecord.h"
 #include "geometry/geometry.h"
 
 namespace leptus {
