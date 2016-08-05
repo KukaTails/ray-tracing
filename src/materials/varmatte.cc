@@ -20,7 +20,7 @@ Color VARMatte::Shade(const ShadeRecord& shade_rec) const
   const std::vector<LightPtr>& lights = shade_rec.world_.lights();
 
   Vector3f out_dir = -shade_rec.ray_.dir_;
-  Color out_color = ambient_func_.Rho(shade_rec.hit_rec_, out_dir) * shade_rec.world_.ambient_light()->light(hit_rec);
+  Color out_color = ambient_func_.Rho(shade_rec.hit_rec_, out_dir) * shade_rec.world_.ambient_light()->light(shade_rec);
 
   for (int i = 0; i < lights.size( ); ++i) {
     Vector3f in_dir = lights[i]->GetShadowRayDir(shade_rec.hit_rec_);
@@ -29,7 +29,7 @@ Color VARMatte::Shade(const ShadeRecord& shade_rec) const
 
     if (lights[i]->CastShadows( ) && !lights[i]->InShadow(hit_rec.p_hit_, shade_rec.world_.surfaces())) {
       if (n_dot_in > static_cast<Float>(0.0) && n_dot_out > static_cast<Float>(0.0))
-        out_color += diffuse_func_.F(hit_rec, in_dir, out_dir) * shade_rec.world_.lights()[i]->light(hit_rec) * n_dot_in;
+      out_color += diffuse_func_.F(hit_rec, in_dir, out_dir) * shade_rec.world_.lights()[i]->light(shade_rec) * n_dot_in;
     }
   }
   return out_color;
@@ -41,7 +41,7 @@ Color VARMatte::AreaLightShade(const ShadeRecord& shade_rec) const
   const std::vector<LightPtr>& lights = shade_rec.world_.lights( );
 
   Vector3f out_dir = -shade_rec.ray_.dir_;
-  Color radiance = ambient_func_.Rho(hit_rec, out_dir) * shade_rec.world_.ambient_light( )->light(hit_rec);
+  Color radiance = ambient_func_.Rho(hit_rec, out_dir) * shade_rec.world_.ambient_light( )->light(shade_rec);
 
   for (int i = 0; i < lights.size( ); ++i) {
     Vector3f in_dir = lights[i]->GetShadowRayDir(hit_rec);
@@ -56,7 +56,7 @@ Color VARMatte::AreaLightShade(const ShadeRecord& shade_rec) const
       }
 
       if (!in_shadow) {
-        radiance += diffuse_func_.F(hit_rec, in_dir, out_dir) * lights[i]->light(hit_rec)
+        radiance += diffuse_func_.F(hit_rec, in_dir, out_dir) * lights[i]->light(shade_rec)
           * lights[i]->GeometricFactor(hit_rec) * (n_dot_in / lights[i]->ProbabilityDensityFunction(hit_rec));
       }
     }
