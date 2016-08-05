@@ -4,20 +4,20 @@
 namespace leptus {
 
 Rectangle::Rectangle(const Point3f& p, const Vector3f& a, const Vector3f& b, const Color& color)
-  : Surface(color), p_(p), a_(a), b_(b), n_(Normalize(Cross(a, b))), pdf_(1 / (Cross(a, b).Length()))
+  : Surface(color), p_(p), a_(a), b_(b), n_(Normalize(Cross(a, b))), pdf_(1.0 / (Cross(a, b).Length()))
 {
   Assert(Dot(a, b) == 0.0);
 }
 
 Rectangle::Rectangle(const Point3f& p, const Vector3f& a, const Vector3f& b, const MaterialPtr& material)
-  : Surface(material), p_(p), a_(a), b_(b), n_(Normalize(Cross(a, b)))
+  : Surface(material), p_(p), a_(a), b_(b), n_(Normalize(Cross(a, b))), pdf_(1.0 / (Cross(a, b).Length()))
 {
   Assert(Dot(a, b) == 0.0);
 }
 
 Rectangle::Rectangle(const Point3f& p, const Vector3f& a,
                      const Vector3f& b, const Normal3f& n, const MaterialPtr& material)
-  : Surface(material), p_(p), a_(a), b_(b), n_(Normalize(n))
+  : Surface(material), p_(p), a_(a), b_(b), n_(Normalize(n)), pdf_(1.0 / (Cross(a, b).Length( )))
 {
   Assert(Dot(a, b) == 0.0);
 }
@@ -81,6 +81,11 @@ Point3f Rectangle::Sample( ) const
 {
   Point2f sampler_point = sampler_->SampleUnitSquare( );
   return p_ + sampler_point.x_ * a_ + sampler_point.y_ * b_;
+}
+
+Normal3f Rectangle::GetNormal(const Point3f& point) const
+{
+  return n_;
 }
 
 Float Rectangle::ProbabilityDensityFunc(const HitRecord& hit_rec) const

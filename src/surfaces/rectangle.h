@@ -12,11 +12,12 @@ public:
   Rectangle(const Point3f& p, const Vector3f& a, const Vector3f& b, const Normal3f& n, const MaterialPtr& material);
   virtual bool Hit(const Ray& ray, Float& t_hit, HitRecord& hit_rec) const override;
   virtual bool ShadowHit(const Ray& ray, Float& t_hit) const override;
+  virtual BoundingBoxPtr GetBoundingBox( ) const override;
   virtual Point3f Sample( ) const override;
-  virtual Float ProbabilityDensityFunc(const HitRecord& hit_rec) const;
+  virtual Normal3f GetNormal(const Point3f& point) const override;
+  virtual Float ProbabilityDensityFunc(const HitRecord& hit_rec) const override;
 
 private:
-  virtual BoundingBoxPtr GetBoundingBox( ) const override;
   virtual Point3f GetLocalHitPoint(const Point3f& p_hit) const override;
 
 private:
