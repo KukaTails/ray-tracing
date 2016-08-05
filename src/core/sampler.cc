@@ -1,10 +1,30 @@
 #include "core/sampler.h"
 
+#include <algorithm>
+
 namespace leptus {
 
 Sampler::Sampler(unsigned num_samples, unsigned num_sets)
   : num_samples_(num_samples), num_sets_(num_sets), cnt_(0), cosine_exponent_(0.5)
-{ }
+{
+  Init( );
+}
+
+void Sampler::Init( )
+{
+  shuffled_indices_.reserve(num_sets_ * num_samples_);
+  
+  std::vector<unsigned> indices(num_samples_);
+  for (int i = 0; i < indices.size( ); ++i)
+    indices[i] = i;
+
+  for (int i = 0; i < num_sets_; ++i) {
+    std::random_shuffle(indices.begin( ), indices.end( ));
+    for (int j = 0; j < num_samples_; ++j) {
+      shuffled_indices_.push_back(indices[j]);
+    }
+  }
+}
 
 void Sampler::SetHemiSphereCosineExponent(Float cosine_exponent)
 {
@@ -18,12 +38,19 @@ Float Sampler::RandFloat( )
   return static_cast<Float>(rand( ) % 1000) / 1000.0;
 }
 
+unsigned Sampler::GetIndex()
+{
+  if (cnt_ % num_samples_)
+    sample_point_jumped_ = (std::abs(std::rand( )) % num_sets_) * num_samples_;
+  return sample_point_jumped_ + shuffled_indices_[sample_point_jumped_ + (cnt_++) % num_samples_];
+}
+
 Point2f Sampler::SampleUnitSquare( )
 {
   if (square_samples_.size( ) == 0) {
     GenerateSamples( );
   }
-  return square_samples_[(cnt_++) % (num_samples_ * num_sets_)];
+  return square_samples_[GetIndex()];
 }
 
 Point2f Sampler::SampleUnitDisk( )
@@ -33,7 +60,7 @@ Point2f Sampler::SampleUnitDisk( )
       GenerateSamples( );
     MapSamplesToUnitDisk( );
   }
-  return disk_samples_[(cnt_++) % (num_samples_ * num_sets_)];
+  return disk_samples_[GetIndex()];
 }
 
 Point3f Sampler::SampleUnitHemiSphere( )
@@ -43,7 +70,7 @@ Point3f Sampler::SampleUnitHemiSphere( )
       GenerateSamples( );
     MapSamplesToHemisphere(cosine_exponent_);
   }
-  return hemisphere_samples_[(cnt_++) % (num_samples_ * num_sets_)];
+  return hemisphere_samples_[GetIndex()];
 }
 
 unsigned Sampler::num_samples( ) const

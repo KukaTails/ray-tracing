@@ -29,6 +29,10 @@ protected:
   void MapSamplesToUnitDisk( );
   void MapSamplesToHemisphere(Float cosine_exponent_);
 
+private:
+  void Init( );
+  unsigned GetIndex();
+
 protected:
   unsigned num_samples_;
   unsigned num_sets_;
@@ -37,6 +41,8 @@ protected:
   std::vector<Point3f> hemisphere_samples_;
   std::vector<Point2f> square_samples_;
   std::vector<Point2f> disk_samples_;
+  std::vector<unsigned> shuffled_indices_;
+  unsigned sample_point_jumped_ = 0;
 };
 
 using SamplerPtr = Sampler::SamplerPtr;
